@@ -12,11 +12,7 @@ import {
   AlertDialogTrigger,
   Button,
 } from "@arc/ui";
-import {
-  BluetoothIcon,
-  CircleFadingPlusIcon,
-  Trash2Icon,
-} from "lucide-react";
+import { SiSquareDashed } from "stera-icons";
 
 const meta: Meta<typeof AlertDialog> = {
   title: "Arc UI/AlertDialog",
@@ -83,7 +79,7 @@ export const Media: Story = {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogMedia>
-            <CircleFadingPlusIcon />
+            <SiSquareDashed />
           </AlertDialogMedia>
           <AlertDialogTitle>Share this project?</AlertDialogTitle>
           <AlertDialogDescription>
@@ -109,7 +105,7 @@ export const SmallWithMedia: Story = {
       <AlertDialogContent size="sm">
         <AlertDialogHeader>
           <AlertDialogMedia>
-            <BluetoothIcon />
+            <SiSquareDashed />
           </AlertDialogMedia>
           <AlertDialogTitle>Allow accessory to connect?</AlertDialogTitle>
           <AlertDialogDescription>
@@ -135,7 +131,7 @@ export const Destructive: Story = {
       <AlertDialogContent size="sm">
         <AlertDialogHeader>
           <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
-            <Trash2Icon />
+            <SiSquareDashed />
           </AlertDialogMedia>
           <AlertDialogTitle>Delete chat?</AlertDialogTitle>
           <AlertDialogDescription>
@@ -146,7 +142,7 @@ export const Destructive: Story = {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel variant="outline">Cancel</AlertDialogCancel>
-          <AlertDialogAction variant="destructive"><Trash2Icon />Delete</AlertDialogAction>
+          <AlertDialogAction variant="destructive"><SiSquareDashed />Delete</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -94,11 +94,11 @@ function AlertDialogHeader({
       data-slot="alert-dialog-header"
       className={cn(
         // Base
-        "flex flex-col text-center",
+        "flex flex-col items-center text-center",
         // Sizing
         "gap-1",
         // Variants
-        "group-data-[size=default]/alert-dialog-content:text-left",
+        "group-data-[size=default]/alert-dialog-content:text-left group-data-[size=default]/alert-dialog-content:items-start",
         className
       )}
       {...props}
@@ -168,7 +168,7 @@ function AlertDialogMedia({
       data-slot="alert-dialog-media"
       className={cn(
         // Base
-        "inline-flex rounded-md bg-muted",
+        "inline-flex rounded-lg bg-muted",
         // Sizing
         "size-10",
         // Other
@@ -182,8 +182,8 @@ function AlertDialogMedia({
 
 function AlertDialogAction({
   className,
-  variant = "default",
-  size = "default",
+  variant = "brand",
+  size = "md",
   ...props
 }: React.ComponentProps<typeof AlertDialogPrimitive.Action> &
   Pick<React.ComponentProps<typeof Button>, "variant" | "size">) {
@@ -201,7 +201,7 @@ function AlertDialogAction({
 function AlertDialogCancel({
   className,
   variant = "outline",
-  size = "default",
+  size = "md",
   ...props
 }: React.ComponentProps<typeof AlertDialogPrimitive.Cancel> &
   Pick<React.ComponentProps<typeof Button>, "variant" | "size">) {
