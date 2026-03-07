@@ -1,10 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
+/* ─────────────────────────────────────────────
+   Top-level :root — unlayered, highest priority
+   shadcn/ui tokens + Arc config (primitives,
+   typography scale, font/weight/spacing vars).
+   These will never be theme-overridden so they
+   live here, not in @layer base.
+───────────────────────────────────────────── */
+
 :root {
+    /* shadcn/ui */
+    --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
@@ -37,6 +48,139 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+
+    /* Arc — Typography config */
+    --font-display: Geist;
+    --font-body: Geist;
+    --weight-subtle: 300;
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-strong: 550;
+    --weight-heavy: 600;
+    --weight-ultra: 800;
+    --letter-spacing-tightest: -1.2px;
+    --letter-spacing-tighter: -0.8px;
+    --letter-spacing-tight: -0.4px;
+    --letter-spacing-normal: 0px;
+    --letter-spacing-wide: 0.1px;
+    --size-body-sm: 0.75rem;
+    --size-body-md: 0.875rem;
+    --size-body-lg: 1rem;
+    --size-heading-sm: 1.25rem;
+    --size-heading-md: 1.5rem;
+    --size-heading-lg: 2rem;
+    --size-display-sm: 2.25rem;
+    --size-display-md: 2.5rem;
+    --size-display-lg: 3rem;
+    --size-hero-sm: 3.75rem;
+    --size-hero-md: 4.5rem;
+    --size-hero-lg: 6rem;
+    --size-hero-xl: 7rem;
+    --line-height-snug: 1rem;
+    --line-height-normal: 1.25rem;
+    --line-height-relaxed: 1.5rem;
+    --line-height-28: 1.75rem;
+    --line-height-32: 2rem;
+    --line-height-40: 2.5rem;
+    --line-height-48: 3rem;
+    --line-height-56: 3.5rem;
+    --line-height-72: 4.5rem;
+    --line-height-80: 5rem;
+    --line-height-104: 6.5rem;
+    --line-height-120: 7.5rem;
+
+    /* Arc — Primitive palette */
+    --brand-50: #f4f2ff;
+    --brand-100: #ece8ff;
+    --brand-200: #dbd3ff;
+    --brand-300: #c1b0ff;
+    --brand-400: #a284ff;
+    --brand-500: #8652ff;
+    --brand-600: #782ff8;
+    --brand-700: #6a1de4;
+    --brand-800: #5a18c4;
+    --brand-900: #49159d;
+    --brand-950: #2b0b6a;
+    --accent-50: #f4f7f9;
+    --accent-100: #ebf1f4;
+    --accent-200: #dae5eb;
+    --accent-300: #c3d5de;
+    --accent-400: #aabfcf;
+    --accent-500: #94aac0;
+    --accent-600: #7d91ae;
+    --accent-700: #667893;
+    --accent-800: #58677b;
+    --accent-900: #4b5764;
+    --accent-950: #2c333a;
+    --neutral-50: #f7f7f7;
+    --neutral-100: #efefef;
+    --neutral-200: #dcdcdc;
+    --neutral-300: #bdbdbd;
+    --neutral-400: #989898;
+    --neutral-500: #7c7c7c;
+    --neutral-600: #656565;
+    --neutral-700: #525252;
+    --neutral-800: #464646;
+    --neutral-900: #3d3d3d;
+    --neutral-950: #292929;
+    --neutral-975: #2c2c2c;
+    --danger-50: #fef3ee;
+    --danger-100: #fee4d6;
+    --danger-200: #fbc5ad;
+    --danger-300: #f99d78;
+    --danger-400: #f56a42;
+    --danger-500: #f24822;
+    --danger-600: #e32b13;
+    --danger-700: #bc1c12;
+    --danger-800: #961916;
+    --danger-900: #791815;
+    --danger-950: #41090a;
+    --success-50: #f0fdf5;
+    --success-100: #dbfdea;
+    --success-200: #baf8d6;
+    --success-300: #84f1b6;
+    --success-400: #47e18e;
+    --success-500: #1fc86e;
+    --success-600: #14ae5c;
+    --success-700: #138247;
+    --success-800: #14673c;
+    --success-900: #135433;
+    --success-950: #042f1a;
+    --warning-50: #fefbe8;
+    --warning-100: #fff8c2;
+    --warning-200: #ffee87;
+    --warning-300: #ffdd43;
+    --warning-400: #ffcd29;
+    --warning-500: #efae03;
+    --warning-600: #ce8500;
+    --warning-700: #a45e04;
+    --warning-800: #88490b;
+    --warning-900: #733c10;
+    --warning-950: #431e05;
+    --black-50: #00000005;
+    --black-100: #0000000a;
+    --black-200: #0000000f;
+    --black-300: #00000017;
+    --black-400: #00000021;
+    --black-500: #0000002e;
+    --black-600: #00000042;
+    --black-700: #00000061;
+    --black-800: #0000008c;
+    --black-900: #000000bf;
+    --black-925: #000000e0;
+    --black-950: #000000;
+    --white-50: #ffffff08;
+    --white-100: #ffffff0f;
+    --white-200: #ffffff1a;
+    --white-300: #ffffff26;
+    --white-400: #ffffff36;
+    --white-500: #ffffff47;
+    --white-600: #ffffff61;
+    --white-700: #ffffff80;
+    --white-800: #ffffffa6;
+    --white-900: #ffffffd1;
+    --white-925: #ffffffe3;
+    --white-950: #ffffff;
 }
 
 .dark {
@@ -73,39 +217,40 @@
     --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* ─────────────────────────────────────────────
+   Tailwind theme — shadcn/ui + Arc tokens
+───────────────────────────────────────────── */
+
 @theme inline {
+    /* shadcn/ui */
     --font-sans: var(--font-sans);
-    --color-sidebar-ring: var(--sidebar-ring);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar: var(--sidebar);
-    --color-chart-5: var(--chart-5);
-    --color-chart-4: var(--chart-4);
-    --color-chart-3: var(--chart-3);
-    --color-chart-2: var(--chart-2);
-    --color-chart-1: var(--chart-1);
-    --color-ring: var(--ring);
-    --color-input: var(--input);
-    --color-border: var(--border);
-    --color-destructive: var(--destructive);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-accent: var(--accent);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-muted: var(--muted);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-secondary: var(--secondary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-primary: var(--primary);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-popover: var(--popover);
-    --color-card-foreground: var(--card-foreground);
-    --color-card: var(--card);
-    --color-foreground: var(--foreground);
     --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
     --radius-sm: calc(var(--radius) * 0.6);
     --radius-md: calc(var(--radius) * 0.8);
     --radius-lg: var(--radius);
@@ -113,16 +258,556 @@
     --radius-2xl: calc(var(--radius) * 1.8);
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
+
+    /* Arc — Background */
+    --color-bg-surface: var(--bg-surface);
+    --color-bg-surface-hover: var(--bg-surface-hover);
+    --color-bg-surface-secondary: var(--bg-surface-secondary);
+    --color-bg-surface-secondary-hover: var(--bg-surface-secondary-hover);
+    --color-bg-surface-tertiary: var(--bg-surface-tertiary);
+    --color-bg-surface-tertiary-hover: var(--bg-surface-tertiary-hover);
+    --color-bg-surface-inverse: var(--bg-surface-inverse);
+    --color-bg-brand: var(--bg-brand);
+    --color-bg-brand-hover: var(--bg-brand-hover);
+    --color-bg-brand-secondary: var(--bg-brand-secondary);
+    --color-bg-brand-secondary-hover: var(--bg-brand-secondary-hover);
+    --color-bg-brand-tertiary: var(--bg-brand-tertiary);
+    --color-bg-brand-tertiary-hover: var(--bg-brand-tertiary-hover);
+    --color-bg-accent: var(--bg-accent);
+    --color-bg-accent-hover: var(--bg-accent-hover);
+    --color-bg-accent-secondary: var(--bg-accent-secondary);
+    --color-bg-accent-secondary-hover: var(--bg-accent-secondary-hover);
+    --color-bg-accent-tertiary: var(--bg-accent-tertiary);
+    --color-bg-accent-tertiary-hover: var(--bg-accent-tertiary-hover);
+    --color-bg-danger: var(--bg-danger);
+    --color-bg-danger-hover: var(--bg-danger-hover);
+    --color-bg-danger-secondary: var(--bg-danger-secondary);
+    --color-bg-danger-secondary-hover: var(--bg-danger-secondary-hover);
+    --color-bg-danger-tertiary: var(--bg-danger-tertiary);
+    --color-bg-danger-tertiary-hover: var(--bg-danger-tertiary-hover);
+    --color-bg-success: var(--bg-success);
+    --color-bg-success-hover: var(--bg-success-hover);
+    --color-bg-success-secondary: var(--bg-success-secondary);
+    --color-bg-success-secondary-hover: var(--bg-success-secondary-hover);
+    --color-bg-success-tertiary: var(--bg-success-tertiary);
+    --color-bg-success-tertiary-hover: var(--bg-success-tertiary-hover);
+    --color-bg-warning: var(--bg-warning);
+    --color-bg-warning-hover: var(--bg-warning-hover);
+    --color-bg-warning-secondary: var(--bg-warning-secondary);
+    --color-bg-warning-secondary-hover: var(--bg-warning-secondary-hover);
+    --color-bg-warning-tertiary: var(--bg-warning-tertiary);
+    --color-bg-warning-tertiary-hover: var(--bg-warning-tertiary-hover);
+    --color-bg-disabled: var(--bg-disabled);
+    --color-bg-disabled-secondary: var(--bg-disabled-secondary);
+
+    /* Arc — Text */
+    --color-text: var(--text);
+    --color-text-secondary: var(--text-secondary);
+    --color-text-tertiary: var(--text-tertiary);
+    --color-text-disabled: var(--text-disabled);
+    --color-text-oninverse: var(--text-oninverse);
+    --color-text-ondisabled: var(--text-ondisabled);
+    --color-text-brand: var(--text-brand);
+    --color-text-brand-secondary: var(--text-brand-secondary);
+    --color-text-brand-tertiary: var(--text-brand-tertiary);
+    --color-text-onbrand: var(--text-onbrand);
+    --color-text-onbrand-secondary: var(--text-onbrand-secondary);
+    --color-text-onbrand-tertiary: var(--text-onbrand-tertiary);
+    --color-text-accent: var(--text-accent);
+    --color-text-accent-secondary: var(--text-accent-secondary);
+    --color-text-accent-tertiary: var(--text-accent-tertiary);
+    --color-text-onaccent: var(--text-onaccent);
+    --color-text-onaccent-secondary: var(--text-onaccent-secondary);
+    --color-text-onaccent-tertiary: var(--text-onaccent-tertiary);
+    --color-text-danger: var(--text-danger);
+    --color-text-danger-secondary: var(--text-danger-secondary);
+    --color-text-danger-tertiary: var(--text-danger-tertiary);
+    --color-text-ondanger: var(--text-ondanger);
+    --color-text-ondanger-secondary: var(--text-ondanger-secondary);
+    --color-text-ondanger-tertiary: var(--text-ondanger-tertiary);
+    --color-text-success: var(--text-success);
+    --color-text-success-secondary: var(--text-success-secondary);
+    --color-text-success-tertiary: var(--text-success-tertiary);
+    --color-text-onsuccess: var(--text-onsuccess);
+    --color-text-onsuccess-secondary: var(--text-onsuccess-secondary);
+    --color-text-onsuccess-tertiary: var(--text-onsuccess-tertiary);
+    --color-text-warning: var(--text-warning);
+    --color-text-warning-secondary: var(--text-warning-secondary);
+    --color-text-warning-tertiary: var(--text-warning-tertiary);
+    --color-text-onwarning: var(--text-onwarning);
+    --color-text-onwarning-secondary: var(--text-onwarning-secondary);
+    --color-text-onwarning-tertiary: var(--text-onwarning-tertiary);
+
+    /* Arc — Border
+       Note: --color-border maps to Arc's --border semantic token,
+       which overrides the shadcn value via @layer base below. */
+    --color-border: var(--border);
+    --color-border-secondary: var(--border-secondary);
+    --color-border-tertiary: var(--border-tertiary);
+    --color-border-brand: var(--border-brand);
+    --color-border-brand-secondary: var(--border-brand-secondary);
+    --color-border-onbrand: var(--border-onbrand);
+    --color-border-onbrand-secondary: var(--border-onbrand-secondary);
+    --color-border-accent: var(--border-accent);
+    --color-border-accent-secondary: var(--border-accent-secondary);
+    --color-border-onaccent: var(--border-onaccent);
+    --color-border-onaccent-secondary: var(--border-onaccent-secondary);
+    --color-border-danger: var(--border-danger);
+    --color-border-danger-secondary: var(--border-danger-secondary);
+    --color-border-ondanger: var(--border-ondanger);
+    --color-border-ondanger-secondary: var(--border-ondanger-secondary);
+    --color-border-success: var(--border-success);
+    --color-border-success-secondary: var(--border-success-secondary);
+    --color-border-onsuccess: var(--border-onsuccess);
+    --color-border-onsuccess-secondary: var(--border-onsuccess-secondary);
+    --color-border-warning: var(--border-warning);
+    --color-border-warning-secondary: var(--border-warning-secondary);
+    --color-border-onwarning: var(--border-onwarning);
+    --color-border-onwarning-secondary: var(--border-onwarning-secondary);
+
+    /* Arc — Charts
+       These map to the same --chart-* custom properties as shadcn,
+       but Arc redefines them in @layer base using brand palette values. */
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
 }
 
+/* ─────────────────────────────────────────────
+   Arc design tokens
+   Defined in @layer base so they cascade after
+   the shadcn top-level :root declarations above,
+   intentionally overriding shared token names
+   (--border, --chart-*) and adding all Arc-specific
+   semantic tokens, primitives, and typography config.
+───────────────────────────────────────────── */
+
 @layer base {
+  :root {
+    /* ── Semantic tokens ── */
+
+    /* Bg/Surface */
+    --bg-surface: var(--white-950);
+    --bg-surface-hover: var(--neutral-50);
+    --bg-surface-secondary: var(--neutral-50);
+    --bg-surface-secondary-hover: var(--neutral-100);
+    --bg-surface-tertiary: var(--neutral-100);
+    --bg-surface-tertiary-hover: var(--neutral-200);
+    --bg-surface-inverse: var(--neutral-975);
+
+    /* Bg/Brand */
+    --bg-brand: var(--brand-700);
+    --bg-brand-hover: var(--brand-800);
+    --bg-brand-secondary: var(--brand-900);
+    --bg-brand-secondary-hover: var(--brand-950);
+    --bg-brand-tertiary: var(--brand-50);
+    --bg-brand-tertiary-hover: var(--brand-100);
+
+    /* Bg/Accent */
+    --bg-accent: var(--accent-700);
+    --bg-accent-hover: var(--accent-800);
+    --bg-accent-secondary: var(--accent-800);
+    --bg-accent-secondary-hover: var(--accent-900);
+    --bg-accent-tertiary: var(--accent-50);
+    --bg-accent-tertiary-hover: var(--accent-100);
+
+    /* Bg/Danger */
+    --bg-danger: var(--danger-500);
+    --bg-danger-hover: var(--danger-600);
+    --bg-danger-secondary: var(--danger-600);
+    --bg-danger-secondary-hover: var(--danger-700);
+    --bg-danger-tertiary: var(--danger-50);
+    --bg-danger-tertiary-hover: var(--danger-100);
+
+    /* Bg/Success */
+    --bg-success: var(--success-600);
+    --bg-success-hover: var(--success-700);
+    --bg-success-secondary: var(--success-700);
+    --bg-success-secondary-hover: var(--success-800);
+    --bg-success-tertiary: var(--success-50);
+    --bg-success-tertiary-hover: var(--success-100);
+
+    /* Bg/Warning */
+    --bg-warning: var(--warning-400);
+    --bg-warning-hover: var(--warning-500);
+    --bg-warning-secondary: var(--warning-500);
+    --bg-warning-secondary-hover: var(--warning-600);
+    --bg-warning-tertiary: var(--warning-100);
+    --bg-warning-tertiary-hover: var(--warning-200);
+
+    /* Bg/Disabled */
+    --bg-disabled: var(--neutral-100);
+    --bg-disabled-secondary: var(--neutral-200);
+
+    /* Text */
+    --text: var(--black-925);
+    --text-secondary: var(--black-800);
+    --text-tertiary: var(--black-700);
+    --text-disabled: var(--black-700);
+    --text-oninverse: var(--white-950);
+    --text-ondisabled: var(--white-950);
+
+    /* Text/Brand */
+    --text-brand: var(--brand-700);
+    --text-brand-secondary: var(--brand-900);
+    --text-brand-tertiary: var(--brand-300);
+
+    /* Text/Onbrand */
+    --text-onbrand: var(--white-950);
+    --text-onbrand-secondary: var(--white-900);
+    --text-onbrand-tertiary: var(--white-800);
+
+    /* Text/Accent */
+    --text-accent: var(--accent-700);
+    --text-accent-secondary: var(--accent-900);
+    --text-accent-tertiary: var(--accent-300);
+
+    /* Text/Onaccent */
+    --text-onaccent: var(--white-950);
+    --text-onaccent-secondary: var(--white-900);
+    --text-onaccent-tertiary: var(--white-800);
+
+    /* Text/Danger */
+    --text-danger: var(--danger-500);
+    --text-danger-secondary: var(--danger-600);
+    --text-danger-tertiary: var(--danger-300);
+
+    /* Text/Ondanger */
+    --text-ondanger: var(--white-950);
+    --text-ondanger-secondary: var(--white-900);
+    --text-ondanger-tertiary: var(--white-700);
+
+    /* Text/Success */
+    --text-success: var(--success-600);
+    --text-success-secondary: var(--success-700);
+    --text-success-tertiary: var(--success-300);
+
+    /* Text/Onsuccess */
+    --text-onsuccess: var(--white-950);
+    --text-onsuccess-secondary: var(--white-900);
+    --text-onsuccess-tertiary: var(--white-700);
+
+    /* Text/Warning */
+    --text-warning: var(--warning-500);
+    --text-warning-secondary: var(--warning-600);
+    --text-warning-tertiary: var(--warning-100);
+
+    /* Text/Onwarning */
+    --text-onwarning: var(--black-900);
+    --text-onwarning-secondary: var(--black-800);
+    --text-onwarning-tertiary: var(--black-700);
+
+    /* Border — overrides shadcn's --border */
+    --border: var(--neutral-100);
+    --border-secondary: var(--neutral-200);
+    --border-tertiary: var(--neutral-500);
+
+    /* Border/Brand */
+    --border-brand: var(--brand-200);
+    --border-brand-secondary: var(--brand-700);
+
+    /* Border/Onbrand */
+    --border-onbrand: var(--brand-400);
+    --border-onbrand-secondary: var(--brand-100);
+
+    /* Border/Accent */
+    --border-accent: var(--accent-200);
+    --border-accent-secondary: var(--accent-700);
+
+    /* Border/Onaccent */
+    --border-onaccent: var(--accent-400);
+    --border-onaccent-secondary: var(--accent-100);
+
+    /* Border/Danger */
+    --border-danger: var(--danger-200);
+    --border-danger-secondary: var(--danger-500);
+
+    /* Border/Ondanger */
+    --border-ondanger: var(--danger-600);
+    --border-ondanger-secondary: var(--danger-200);
+
+    /* Border/Success */
+    --border-success: var(--success-200);
+    --border-success-secondary: var(--success-600);
+
+    /* Border/Onsuccess */
+    --border-onsuccess: var(--success-600);
+    --border-onsuccess-secondary: var(--success-100);
+
+    /* Border/Warning */
+    --border-warning: var(--warning-200);
+    --border-warning-secondary: var(--warning-500);
+
+    /* Border/Onwarning */
+    --border-onwarning: var(--warning-500);
+    --border-onwarning-secondary: var(--warning-600);
+
+    /* Charts — override shadcn's --chart-1/2/3 */
+    --chart-1: var(--brand-400);
+    --chart-2: var(--brand-200);
+    --chart-3: var(--brand-800);
+  }
+
+  .dark {
+    /* Bg/Surface */
+    --bg-surface: var(--neutral-975);
+    --bg-surface-hover: var(--neutral-900);
+    --bg-surface-secondary: var(--neutral-900);
+    --bg-surface-secondary-hover: var(--neutral-800);
+    --bg-surface-tertiary: var(--neutral-800);
+    --bg-surface-tertiary-hover: var(--neutral-700);
+    --bg-surface-inverse: var(--white-950);
+
+    /* Bg/Brand */
+    --bg-brand: var(--brand-800);
+    --bg-brand-hover: var(--brand-700);
+    --bg-brand-secondary-hover: var(--brand-800);
+
+    /* Bg/Accent */
+    --bg-accent: var(--accent-800);
+    --bg-accent-hover: var(--accent-700);
+    --bg-accent-secondary: var(--accent-900);
+    --bg-accent-secondary-hover: var(--accent-800);
+
+    /* Bg/Danger */
+    --bg-danger: var(--danger-700);
+    --bg-danger-hover: var(--danger-800);
+    --bg-danger-secondary: var(--danger-900);
+    --bg-danger-secondary-hover: var(--danger-800);
+
+    /* Bg/Success */
+    --bg-success: var(--success-700);
+    --bg-success-hover: var(--success-800);
+    --bg-success-secondary: var(--success-800);
+    --bg-success-secondary-hover: var(--success-900);
+    --bg-success-tertiary: var(--success-900);
+    --bg-success-tertiary-hover: var(--success-950);
+
+    /* Bg/Warning */
+    --bg-warning: var(--warning-500);
+    --bg-warning-hover: var(--warning-600);
+    --bg-warning-secondary: var(--warning-600);
+    --bg-warning-secondary-hover: var(--warning-700);
+
+    /* Bg/Disabled */
+    --bg-disabled: var(--neutral-700);
+    --bg-disabled-secondary: var(--neutral-800);
+
+    /* Text */
+    --text: var(--white-925);
+    --text-secondary: var(--white-900);
+    --text-tertiary: var(--white-800);
+    --text-disabled: var(--white-700);
+    --text-oninverse: var(--black-950);
+    --text-ondisabled: var(--black-950);
+
+    /* Text/Brand */
+    --text-brand: var(--brand-800);
+    --text-brand-secondary: var(--brand-700);
+    --text-brand-tertiary: var(--brand-500);
+
+    /* Text/Accent */
+    --text-accent: var(--accent-800);
+    --text-accent-secondary: var(--accent-700);
+    --text-accent-tertiary: var(--accent-500);
+
+    /* Text/Danger */
+    --text-danger: var(--danger-700);
+    --text-danger-secondary: var(--danger-900);
+    --text-danger-tertiary: var(--danger-400);
+
+    /* Text/Success */
+    --text-success: var(--success-700);
+    --text-success-secondary: var(--success-900);
+    --text-success-tertiary: var(--success-400);
+
+    /* Text/Warning */
+    --text-warning: var(--warning-600);
+    --text-warning-secondary: var(--warning-700);
+    --text-warning-tertiary: var(--warning-300);
+
+    /* Border — overrides shadcn's dark --border */
+    --border: var(--neutral-700);
+    --border-secondary: var(--neutral-500);
+    --border-tertiary: var(--neutral-200);
+
+    /* Border/Brand */
+    --border-brand: var(--brand-900);
+    --border-onbrand: var(--brand-500);
+    --border-onbrand-secondary: var(--brand-300);
+
+    /* Border/Accent */
+    --border-accent: var(--accent-900);
+    --border-onaccent: var(--accent-500);
+    --border-onaccent-secondary: var(--accent-300);
+
+    /* Border/Danger */
+    --border-danger: var(--danger-900);
+    --border-danger-secondary: var(--danger-700);
+    --border-ondanger: var(--danger-800);
+    --border-ondanger-secondary: var(--danger-900);
+
+    /* Border/Success */
+    --border-success: var(--success-900);
+    --border-success-secondary: var(--success-700);
+    --border-onsuccess: var(--success-700);
+    --border-onsuccess-secondary: var(--success-400);
+
+    /* Border/Warning */
+    --border-warning: var(--warning-700);
+    --border-warning-secondary: var(--warning-600);
+    --border-onwarning: var(--warning-600);
+    --border-onwarning-secondary: var(--warning-700);
+  }
+
+  /* ── shadcn/ui base styles ── */
   * {
     @apply border-border outline-ring/50;
-    }
+  }
   body {
     @apply bg-background text-foreground;
-    }
+  }
   html {
     @apply font-sans;
-    }
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Arc typography utilities
+───────────────────────────────────────────── */
+
+@utility arc-text-body-sm {
+  font-family: var(--font-body);
+  font-size: var(--size-body-sm);
+  line-height: var(--line-height-snug);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+@utility text-body-sm-strong {
+  font-family: var(--font-body);
+  font-size: var(--size-body-sm);
+  line-height: var(--line-height-snug);
+  font-weight: var(--weight-strong);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+@utility text-body-md {
+  font-family: var(--font-body);
+  font-size: var(--size-body-md);
+  line-height: var(--line-height-normal);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+@utility text-body-md-compact {
+  font-family: var(--font-body);
+  font-size: var(--size-body-md);
+  line-height: var(--line-height-snug);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+@utility text-body-md-strong {
+  font-family: var(--font-body);
+  font-size: var(--size-body-md);
+  line-height: var(--line-height-snug);
+  font-weight: var(--weight-strong);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+@utility text-body-lg {
+  font-family: var(--font-body);
+  font-size: var(--size-body-lg);
+  line-height: var(--line-height-relaxed);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+@utility text-body-lg-strong {
+  font-family: var(--font-body);
+  font-size: var(--size-body-lg);
+  line-height: var(--line-height-relaxed);
+  font-weight: var(--weight-strong);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+@utility text-heading-sm {
+  font-family: var(--font-body);
+  font-size: var(--size-heading-sm);
+  line-height: var(--line-height-28);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+@utility text-heading-md {
+  font-family: var(--font-body);
+  font-size: var(--size-heading-md);
+  line-height: var(--line-height-32);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+@utility text-heading-lg {
+  font-family: var(--font-body);
+  font-size: var(--size-heading-lg);
+  line-height: var(--line-height-40);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+@utility text-display-sm {
+  font-family: var(--font-display);
+  font-size: var(--size-display-sm);
+  line-height: var(--line-height-40);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--letter-spacing-tighter);
+}
+
+@utility text-display-md {
+  font-family: var(--font-display);
+  font-size: var(--size-display-md);
+  line-height: var(--line-height-48);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--letter-spacing-tighter);
+}
+
+@utility text-display-lg {
+  font-family: var(--font-display);
+  font-size: var(--size-display-lg);
+  line-height: var(--line-height-56);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--letter-spacing-tighter);
+}
+
+@utility text-hero-sm {
+  font-family: var(--font-display);
+  font-size: var(--size-hero-sm);
+  line-height: var(--line-height-72);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--letter-spacing-tightest);
+}
+
+@utility text-hero-md {
+  font-family: var(--font-display);
+  font-size: var(--size-hero-md);
+  line-height: var(--line-height-80);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--letter-spacing-tightest);
+}
+
+@utility text-hero-lg {
+  font-family: var(--font-display);
+  font-size: var(--size-hero-lg);
+  line-height: var(--line-height-104);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--letter-spacing-tightest);
+}
+
+@utility text-hero-xl {
+  font-family: var(--font-display);
+  font-size: var(--size-hero-xl);
+  line-height: var(--line-height-120);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--letter-spacing-tightest);
 }
