@@ -15,6 +15,16 @@ const config: StorybookConfig = {
       ...config.resolve.alias,
       "@": path.resolve(__dirname, ".."),
     }
+
+    config.build ??= {}
+    config.build.chunkSizeWarningLimit = 1000
+    config.build.rollupOptions ??= {}
+    config.build.rollupOptions.onwarn = (warning, warn) => {
+      if (warning.code === "MODULE_LEVEL_DIRECTIVE") return
+      if (warning.code === "EVAL" && warning.id?.includes("@storybook")) return
+      warn(warning)
+    }
+
     return config
   },
 }
