@@ -575,5 +575,6 @@
   }
   body {
     @apply bg-bg-surface text-text antialiased;
+    font-feature-settings: "ss03";
   }
 }
