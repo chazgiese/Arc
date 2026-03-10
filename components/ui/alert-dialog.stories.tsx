@@ -115,7 +115,7 @@ export const SmallWithMedia: Story = {
 export const Destructive: Story = {
   render: () => (
     <AlertDialog>
-      <AlertDialogTrigger render={<Button variant="destructive">Delete account</Button>} />
+      <AlertDialogTrigger render={<Button variant="danger">Delete account</Button>} />
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Delete account</AlertDialogTitle>
@@ -126,7 +126,7 @@ export const Destructive: Story = {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction variant="destructive">Delete account</AlertDialogAction>
+          <AlertDialogAction variant="danger">Delete account</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
