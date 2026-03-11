@@ -12,7 +12,6 @@ import {
   FieldSet,
   FieldLegend
 } from "./field"
-import { Label } from "./label"
 
 const meta: Meta<typeof Checkbox> = {
   title: "UI/Checkbox",
@@ -38,7 +37,7 @@ export const Demo: Story = {
     <FieldGroup>
       <Field orientation="horizontal">
         <Checkbox id="terms-checkbox" name="terms-checkbox" />
-        <Label htmlFor="terms-checkbox">Accept terms and conditions</Label>
+        <FieldLabel htmlFor="terms-checkbox">Accept terms and conditions</FieldLabel>
       </Field>
       <Field orientation="horizontal">
         <Checkbox
@@ -55,13 +54,13 @@ export const Demo: Story = {
           </FieldDescription>
         </FieldContent>
       </Field>
-      <Field orientation="horizontal" data-disabled>
+      <Field orientation="horizontal" data-disabled="true">
         <Checkbox id="toggle-checkbox" name="toggle-checkbox" disabled />
         <FieldLabel htmlFor="toggle-checkbox">Enable notifications</FieldLabel>
       </Field>
       <FieldLabel>
         <Field orientation="horizontal">
-          <Checkbox id="toggle-checkbox-2" name="toggle-checkbox-2" />
+          <Checkbox name="toggle-checkbox-2" />
           <FieldContent>
             <FieldTitle>Enable notifications</FieldTitle>
             <FieldDescription>
@@ -78,7 +77,7 @@ export const Demo: Story = {
               You can enable or disable notifications at any time.
             </FieldDescription>
           </FieldContent>
-          <Checkbox id="toggle-checkbox-3" name="toggle-checkbox-3" />
+          <Checkbox name="toggle-checkbox-3" />
         </Field>
       </FieldLabel>
     </FieldGroup>
@@ -87,58 +86,97 @@ export const Demo: Story = {
 
 export const WithLabel: Story = {
   render: () => (
-    <Label className="">
+    <FieldLabel>
       <Checkbox />
       Accept terms and conditions
-    </Label>
+    </FieldLabel>
   ),
 }
 
 export const WithDescription: Story = {
   render: () => (
-    <Label className="">
-      <Checkbox className="mt-0.5 self-start" />
+    <Field orientation="horizontal">
+      <Checkbox />
       <FieldContent>
-        <span className="text-sm font-medium leading-none">
-          Accept terms and conditions
-        </span>
+        <FieldTitle>Accept terms and conditions</FieldTitle>
         <FieldDescription>
           By clicking this checkbox, you agree to the terms and conditions.
         </FieldDescription>
       </FieldContent>
-    </Label>
+    </Field>
   ),
 }
 
 export const Disabled: Story = {
   render: () => (
-    <Label className="">
+    <FieldLabel>
       <Checkbox disabled />
       Enable notifications
-    </Label>
+    </FieldLabel>
   ),
 }
 
 export const CheckboxGroup: Story = {
   render: () => (
-    <FieldSet className="gap-2">
-      <FieldLegend variant="label">Show these items on the desktop</FieldLegend>
-      <Label className="">
-        <Checkbox defaultChecked />
-        Hard disks
-      </Label>
-      <Label className="">
-        <Checkbox defaultChecked />
-        External disks
-      </Label>
-      <Label className="">
-        <Checkbox />
-        CDs, DVDs, and iPods
-      </Label>
-      <Label className="">
-        <Checkbox />
-        Connected servers
-      </Label>
+    <FieldSet>
+      <FieldLegend variant="label">
+        Show these items on the desktop:
+      </FieldLegend>
+      <FieldDescription>
+        Select the items you want to show on the desktop.
+      </FieldDescription>
+      <FieldGroup className="gap-3">
+        <Field orientation="horizontal">
+          <Checkbox
+            id="finder-pref-9k2-hard-disks-ljj-checkbox"
+            name="finder-pref-9k2-hard-disks-ljj-checkbox"
+            defaultChecked
+          />
+          <FieldLabel
+            htmlFor="finder-pref-9k2-hard-disks-ljj-checkbox"
+            className="font-normal"
+          >
+            Hard disks
+          </FieldLabel>
+        </Field>
+        <Field orientation="horizontal">
+          <Checkbox
+            id="finder-pref-9k2-external-disks-1yg-checkbox"
+            name="finder-pref-9k2-external-disks-1yg-checkbox"
+            defaultChecked
+          />
+          <FieldLabel
+            htmlFor="finder-pref-9k2-external-disks-1yg-checkbox"
+            className="font-normal"
+          >
+            External disks
+          </FieldLabel>
+        </Field>
+        <Field orientation="horizontal">
+          <Checkbox
+            id="finder-pref-9k2-cds-dvds-fzt-checkbox"
+            name="finder-pref-9k2-cds-dvds-fzt-checkbox"
+          />
+          <FieldLabel
+            htmlFor="finder-pref-9k2-cds-dvds-fzt-checkbox"
+            className="font-normal"
+          >
+            CDs, DVDs, and iPods
+          </FieldLabel>
+        </Field>
+        <Field orientation="horizontal">
+          <Checkbox
+            id="finder-pref-9k2-connected-servers-6l2-checkbox"
+            name="finder-pref-9k2-connected-servers-6l2-checkbox"
+          />
+          <FieldLabel
+            htmlFor="finder-pref-9k2-connected-servers-6l2-checkbox"
+            className="font-normal"
+          >
+            Connected servers
+          </FieldLabel>
+        </Field>
+      </FieldGroup>
     </FieldSet>
   ),
 }
@@ -147,13 +185,13 @@ export const Controlled: Story = {
   render: () => {
     const [checked, setChecked] = useState(false)
     return (
-      <Label className="">
+      <FieldLabel>
         <Checkbox
           checked={checked}
           onCheckedChange={(c) => setChecked(c === true)}
         />
         {checked ? "Checked" : "Unchecked"}
-      </Label>
+      </FieldLabel>
     )
   },
 }
