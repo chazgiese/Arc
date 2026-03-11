@@ -1,5 +1,3 @@
-"use client"
-
 import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
 
@@ -45,11 +43,11 @@ const buttonVariants = cva(
         sm:
           "h-8 gap-2 px-3 arc-text-body-sm-strong has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
         md:
-          "h-10 gap-2 px-4 arc-text-body-md-strong has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
+          "h-9 gap-2 px-3 arc-text-body-md-strong has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
         lg:
-          "h-12 gap-3 px-5 arc-text-body-lg-strong has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4",
+          "h-10 gap-3 px-5 arc-text-body-lg-strong has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4",
         icon:
-          "size-10 [&_svg:not([class*='size-'])]:size-5",
+          "size-9 [&_svg:not([class*='size-'])]:size-5",
         "icon-xs":
           "size-6 rounded-lg in-data-[slot=button-group]:rounded-md [&_svg:not([class*='size-'])]:size-3",
         "icon-sm":
