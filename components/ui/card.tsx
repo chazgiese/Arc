@@ -13,7 +13,7 @@ function Card({
       data-size={size}
       className={cn(
         // Base
-        "flex flex-col overflow-hidden rounded-xl bg-card py-6 text-sm text-card-foreground shadow-xs ring-1 ring-foreground/10",
+        "flex flex-col overflow-hidden rounded-xl bg-bg-surface py-6 text-sm text-text shadow-sm border border-border",
         // Sizing
         "gap-6",
         // Variants
