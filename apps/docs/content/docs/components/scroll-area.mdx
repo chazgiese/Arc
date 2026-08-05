@@ -1,0 +1,38 @@
+---
+title: Scroll Area
+description: A scrollable region with a styled, custom scrollbar that replaces the native one.
+---
+
+<ComponentPreview name="scroll-area-demo" caption="Scroll Area" />
+
+## Installation
+
+<InstallSnippet slug="scroll-area" hideHeading />
+
+## Examples
+
+### Vertical
+
+The default. `ScrollArea` renders a vertical `ScrollBar` for you — constrain the height and let the content overflow.
+
+<ComponentPreview name="scroll-area-demo" caption="Scroll Area Vertical" />
+
+### Horizontal
+
+Render an extra `ScrollBar` with `orientation="horizontal"` for content that overflows sideways.
+
+<ComponentPreview name="scroll-area-horizontal" caption="Scroll Area Horizontal" />
+
+## API Reference
+
+### ScrollArea
+
+Extends Base UI's `ScrollArea.Root` primitive and accepts all its props. Children are rendered inside the viewport.
+
+### ScrollBar
+
+Extends Base UI's `ScrollArea.Scrollbar` primitive and accepts all its props.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `orientation` | `"horizontal" \| "vertical"` | `"vertical"` |
