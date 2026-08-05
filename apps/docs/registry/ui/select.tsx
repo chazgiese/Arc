@@ -71,10 +71,11 @@ function SelectTrigger({
     >
       {children}
       <SelectPrimitive.Icon
-        render={
-          <SiChevronDown className="pointer-events-none size-4 text-text-subtle" />
-        }
-      />
+        aria-hidden
+        className="pointer-events-none flex size-4 items-center justify-center text-text-subtle"
+      >
+        <SiChevronDown />
+      </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   )
 }

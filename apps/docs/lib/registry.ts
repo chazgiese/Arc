@@ -1047,6 +1047,16 @@ const examples: Record<string, RegistryEntry> = {
     path: "examples/preview-card-delay.tsx",
     slug: "preview-card",
   },
+  "scroll-area-demo": {
+    component: dynamic(() => import("@/examples/scroll-area-demo")),
+    path: "examples/scroll-area-demo.tsx",
+    slug: "scroll-area",
+  },
+  "scroll-area-horizontal": {
+    component: dynamic(() => import("@/examples/scroll-area-horizontal")),
+    path: "examples/scroll-area-horizontal.tsx",
+    slug: "scroll-area",
+  },
 }
 
 export function getRegistryComponent(name: string): ComponentType | null {
