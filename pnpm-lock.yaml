@@ -78,8 +78,8 @@ importers:
         specifier: ^1.10.1
         version: 1.29.2
       stera-icons:
-        specifier: ^8.3.1
-        version: 8.3.1(react@19.2.4)
+        specifier: ^8.5.0
+        version: 8.5.0(react@19.2.4)
       tailwind-merge:
         specifier: ^3.5.0
         version: 3.5.0
@@ -3986,8 +3986,8 @@ packages:
   stable-hash@0.0.5:
     resolution: {integrity: sha512-+L3ccpzibovGXFK+Ap/f8LOS0ahMrHTf3xu7mMLSpEGU0EO9ucaysSylKo9eRDFNhWve/y275iPmIZ4z39a9iA==}
 
-  stera-icons@8.3.1:
-    resolution: {integrity: sha512-IG+NGydxNV/DHsBZP2/9yG+y/M20Js9BwARJC4QF943ImE20QMipklNnEiyvq5Szpqt5TiVR5VB9vGIcu4OmoQ==}
+  stera-icons@8.5.0:
+    resolution: {integrity: sha512-mO1RczotMm9hwhQYrUtqG2tWCLBfHYPKcTNpeikcv4WrwBA7YOhEDW3GG7cHEJ0dyTN80RF53K8dLvHKtXaq+Q==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: '>=17.0.2'
@@ -8614,7 +8614,7 @@ snapshots:
 
   stable-hash@0.0.5: {}
 
-  stera-icons@8.3.1(react@19.2.4):
+  stera-icons@8.5.0(react@19.2.4):
     dependencies:
       react: 19.2.4
 
