@@ -13,7 +13,7 @@ import { writeComponentFiles } from "../utils/write-files.js"
 import { installDependencies } from "../utils/install-deps.js"
 import { applyTransforms } from "../utils/transform.js"
 import { transformImports } from "../utils/transform-imports.js"
-import { writeSteraUiCss } from "../utils/write-stera-css.js"
+import { writeStyles, migrateLegacyStyles } from "../utils/write-styles.js"
 import { CHECK, CROSS, dim } from "../utils/format.js"
 import { createSpinner } from "../utils/spinner.js"
 
@@ -42,9 +42,9 @@ export async function add(
 
   const projectRoot = path.dirname(configPath)
 
-  // `add globals` is a special refresh operation — it overwrites stera-ui.css
-  // with the latest registry content. Not compatible with adding components
-  // in the same invocation.
+  // `add globals` is a special refresh operation — it rewrites the ui/ style
+  // partials from the registry, prompting before replacing the ones users
+  // customize. Not compatible with adding components in the same invocation.
   if (components.includes("globals")) {
     if (components.length > 1) {
       console.error(
@@ -60,15 +60,31 @@ export async function add(
 
     const spinner = createSpinner("Refreshing base styles")
     let result
+    let migrated: string | null = null
     try {
-      result = await writeSteraUiCss(config, projectRoot)
+      migrated = await migrateLegacyStyles(config, projectRoot)
+      result = await writeStyles(config, projectRoot, {
+        overwrite: options.overwrite,
+      })
     } catch (err) {
       spinner.fail("Failed to refresh base styles")
       throw err
     }
-    spinner.succeed(
-      `Refreshed ${path.relative(projectRoot, result.steraUiPath)}`
-    )
+    spinner.succeed(`Refreshed ${result.written.length} style files`)
+
+    if (migrated) {
+      console.log(
+        `  ${CHECK}  Migrated ${path.relative(projectRoot, migrated)} to ui/`
+      )
+    }
+    for (const target of result.written) {
+      console.log(`  ${CHECK}  ${target}`)
+    }
+    for (const file of result.skipped) {
+      const reason =
+        file.reason === "unchanged" ? "unchanged" : "kept your version"
+      console.log(`  ${dim(`-  ${file.path} (${reason})`)}`)
+    }
     console.log("")
     return
   }

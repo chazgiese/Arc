@@ -16,7 +16,13 @@ export {
   detectAliasPrefix,
   type ProjectInfo,
 } from "./detect-project.js"
-export { writeSteraUiCss, type WriteSteraCssResult } from "./write-stera-css.js"
+export {
+  writeStyles,
+  migrateLegacyStyles,
+  INDEX_TARGET,
+  TYPOGRAPHY_TARGET,
+  type WriteStylesResult,
+} from "./write-styles.js"
 export { insertImportLine } from "./css-imports.js"
 export { installDependencies, detectPackageManager } from "./install-deps.js"
 export {

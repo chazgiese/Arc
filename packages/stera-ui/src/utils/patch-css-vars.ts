@@ -4,7 +4,7 @@ import fs from "node:fs"
  * Patch CSS custom property values in a file.
  *
  * Finds lines matching `--prop-name: <value>;` and replaces the value.
- * Works with the predictable structure of generated globals.css / stera-ui.css.
+ * Works with the predictable structure of the generated style partials.
  *
  * @returns List of property names that were actually patched
  */

@@ -8,6 +8,7 @@ const OUTPUT_DIR = path.join(ROOT, "public", "r")
 interface RegistryFile {
   path: string
   type: string
+  target?: string
   content?: string
 }
 
@@ -50,7 +51,12 @@ function buildRegistry() {
   const indexItems: Omit<RegistryItem, "files">[] = []
 
   for (const item of registry.items) {
-    // Validate registryDependencies reference existing items
+    // Validate registryDependencies reference existing items.
+    // NOTE: never list "globals" as a registryDependency. The CLI special-cases
+    // `add globals`; reaching the style item through dependency resolution
+    // instead routes it to the generic writer, which resolves registry:style
+    // files by basename into the consumer's css directory and would overwrite
+    // their own globals.css.
     if (item.registryDependencies) {
       for (const dep of item.registryDependencies) {
         if (!itemNames.has(dep)) {
@@ -97,6 +103,7 @@ function buildRegistry() {
       return {
         path: consumerPath,
         type: file.type,
+        ...(file.target && { target: file.target }),
         content,
       }
     })

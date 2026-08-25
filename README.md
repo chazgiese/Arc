@@ -15,7 +15,7 @@ pnpm dlx stera-ui@latest add button
 
 | Command                          | Description                                                                                                                                                       |
 | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `stera-ui init`                  | Scaffolds `stera.config.json`, writes `stera-ui.css` (design tokens, typography, dark mode), wires it into your Tailwind entry, and walks you through font setup. |
+| `stera-ui init`                  | Scaffolds `stera.config.json`, writes a `ui/` folder of style partials (colors, typography, dark mode, utilities), wires it into your Tailwind entry, and walks you through font setup. |
 | `stera-ui add <component> [...]` | Copies the requested components (and their dependencies) into your project, rewriting import paths to match your aliases and installing any missing npm packages. |
 | `stera-ui list`                  | Lists all available components grouped by type, with their registry dependencies.                                                                                 |
 

@@ -19,7 +19,11 @@ import {
 import { detectFonts, type DetectedFonts } from "../utils/detect-fonts.js"
 import { patchCssVariables } from "../utils/patch-css-vars.js"
 import { massageTreeForFonts, updateFonts } from "../utils/update-fonts.js"
-import { writeSteraUiCss } from "../utils/write-stera-css.js"
+import {
+  writeStyles,
+  migrateLegacyStyles,
+  TYPOGRAPHY_TARGET,
+} from "../utils/write-styles.js"
 import { insertImportLine } from "../utils/css-imports.js"
 import { LOGO, CHECK, dim } from "../utils/format.js"
 import { createSpinner } from "../utils/spinner.js"
@@ -32,20 +36,21 @@ const DEFAULT_FONT_NAMES = ["font-geist", "font-geist-mono"]
 /**
  * Build a SteraConfig based on detected project structure.
  */
+/**
+ * Where the project's main stylesheet lives (or will). Depends only on the
+ * detected project, so it can be resolved before any prompting.
+ */
+function resolveCssPath(project: ProjectInfo): string {
+  if (project.existingCssFile) return project.existingCssFile
+  return project.hasSrc ? "src/styles/globals.css" : "styles/globals.css"
+}
+
 function buildConfig(
   project: ProjectInfo,
   strategy: FontStrategy,
   aliasPrefix: string
 ): SteraConfig {
-  // Determine CSS file path
-  let cssPath: string
-  if (project.existingCssFile) {
-    cssPath = project.existingCssFile
-  } else if (project.hasSrc) {
-    cssPath = "src/styles/globals.css"
-  } else {
-    cssPath = "styles/globals.css"
-  }
+  const cssPath = resolveCssPath(project)
 
   return {
     $schema: "https://ui.stera.sh/schema.json",
@@ -167,7 +172,9 @@ async function executeFontStrategy(
   if (strategy === "skip") return
 
   const cssDir = path.dirname(path.resolve(cwd, config.css))
-  const steraUiPath = path.join(cssDir, "stera-ui.css")
+  // Font variables and font-face imports live with the type tokens, in a
+  // partial a styles refresh will not silently replace.
+  const typographyPath = path.join(cssDir, TYPOGRAPHY_TARGET)
 
   if (strategy === "keep-existing") {
     const fontFamily =
@@ -176,7 +183,7 @@ async function executeFontStrategy(
       ? `var(${detected.nextFontVariable})`
       : (fontFamily ?? "Geist")
 
-    const patched = patchCssVariables(steraUiPath, {
+    const patched = patchCssVariables(typographyPath, {
       "--font-heading": fontValue,
       "--font-sans": fontValue,
     })
@@ -197,23 +204,23 @@ async function executeFontStrategy(
     await installDependencies(fontTree.dependencies, cwd)
   }
 
-  // Add CSS @import lines for fontsource (non-Next.js). Fonts are a
-  // stera-ui concern, so they live in stera-ui.css — we never add imports
-  // to the user's globals.css after the initial scaffold.
+  // Add CSS @import lines for fontsource (non-Next.js). Fonts belong with the
+  // type tokens in ui/typography.css — we never add imports to the user's
+  // globals.css after the initial scaffold.
   if (fontTree.cssImports.length > 0) {
     for (const importLine of fontTree.cssImports) {
-      await insertImportLine(steraUiPath, importLine)
+      await insertImportLine(typographyPath, importLine)
     }
     console.log(
-      `  ${CHECK}  Added font imports to ${path.relative(cwd, steraUiPath)}`
+      `  ${CHECK}  Added font imports to ${path.relative(cwd, typographyPath)}`
     )
   }
 
   if (Object.keys(fontTree.cssVars).length > 0) {
-    const patched = patchCssVariables(steraUiPath, fontTree.cssVars)
+    const patched = patchCssVariables(typographyPath, fontTree.cssVars)
     if (patched.length > 0) {
       console.log(
-        `  ${CHECK}  Updated font variables in ${path.relative(cwd, steraUiPath)}`
+        `  ${CHECK}  Updated font variables in ${path.relative(cwd, typographyPath)}`
       )
     }
   }
@@ -303,6 +310,32 @@ export async function init(options: { cwd?: string; yes?: boolean }) {
   // Detect existing fonts
   const detectedFonts = detectFonts(cwd, project)
 
+  // A project may already keep its own partials in a ui/ folder beside its
+  // globals.css. Writing into it blind could clobber files that have nothing
+  // to do with Stera, so ask first.
+  const uiDir = path.join(path.dirname(path.resolve(cwd, resolveCssPath(project))), "ui")
+  if (fs.existsSync(uiDir) && fs.readdirSync(uiDir).length > 0) {
+    const relativeUiDir = path.relative(cwd, uiDir)
+    console.log("")
+    console.log(`  ${relativeUiDir} already exists and is not empty.`)
+
+    const proceed =
+      options.yes ||
+      (process.stdin.isTTY &&
+        (await confirm({
+          message: `Write the style partials into ${relativeUiDir}?`,
+          default: false,
+        })))
+
+    if (!proceed) {
+      console.log("")
+      console.log(
+        `  Aborted. Move ${relativeUiDir} aside, or point "css" in ${CONFIG_FILE} at a different stylesheet, then run init again.`
+      )
+      return
+    }
+  }
+
   // Prompt for font strategy
   const strategy = await promptFontStrategy(detectedFonts, options.yes ?? false)
 
@@ -314,20 +347,21 @@ export async function init(options: { cwd?: string; yes?: boolean }) {
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2) + "\n", "utf-8")
   console.log(`  ${CHECK}  Created ${CONFIG_FILE}`)
 
-  // Install base styles: always write stera-ui.css, then ensure the user's
-  // globals.css exists and imports it. globals.css is user-owned from this
-  // point forward — `add <component>` never touches any CSS.
+  // Install base styles: write the ui/ partials, then ensure the user's
+  // globals.css exists and imports the index. globals.css is user-owned from
+  // this point forward — `add <component>` never touches any CSS.
   const fetchSpinner = createSpinner("Fetching base styles")
-  let steraCssResult
+  let stylesResult
   try {
-    steraCssResult = await writeSteraUiCss(config, cwd)
+    await migrateLegacyStyles(config, cwd)
+    stylesResult = await writeStyles(config, cwd)
   } catch (err) {
     fetchSpinner.fail("Failed to fetch base styles")
     throw err
   }
   fetchSpinner.succeed("Base styles resolved")
   console.log(
-    `  ${CHECK}  Created ${path.relative(cwd, steraCssResult.steraUiPath)}`
+    `  ${CHECK}  Created ${path.relative(cwd, stylesResult.indexPath)}`
   )
 
   const globalsPath = project.existingCssFile
@@ -336,35 +370,35 @@ export async function init(options: { cwd?: string; yes?: boolean }) {
 
   if (fs.existsSync(globalsPath)) {
     // User has globals.css — add required @imports (idempotent).
-    for (const imp of steraCssResult.extraImports) {
+    for (const imp of stylesResult.extraImports) {
       await insertImportLine(globalsPath, imp)
     }
-    await insertImportLine(globalsPath, '@import "./stera-ui.css";')
+    await insertImportLine(globalsPath, '@import "./ui/index.css";')
     console.log(
       `  ${CHECK}  Added @import to ${path.relative(cwd, globalsPath)}`
     )
   } else {
     // No globals.css — scaffold a minimal one. Tailwind directives live in
-    // stera-ui.css (e.g. @custom-variant, @theme inline), so the scaffold
+    // the ui/ partials (e.g. @custom-variant, @theme inline), so the scaffold
     // only needs to wire in the imports.
     await fsp.mkdir(path.dirname(globalsPath), { recursive: true })
     const scaffold =
       [
         '@import "tailwindcss";',
-        ...steraCssResult.extraImports,
-        '@import "./stera-ui.css";',
+        ...stylesResult.extraImports,
+        '@import "./ui/index.css";',
       ].join("\n") + "\n"
     await fsp.writeFile(globalsPath, scaffold, "utf-8")
     console.log(`  ${CHECK}  Created ${path.relative(cwd, globalsPath)}`)
   }
 
-  // Execute font strategy (patches stera-ui.css only)
+  // Execute font strategy (patches ui/typography.css only)
   await executeFontStrategy(strategy, project, detectedFonts, config, cwd)
 
   // Install npm dependencies declared by the globals registry item
   // (e.g. tw-animate-css).
-  if (steraCssResult.dependencies.length > 0) {
-    const deps = [...new Set(steraCssResult.dependencies)].sort()
+  if (stylesResult.dependencies.length > 0) {
+    const deps = [...new Set(stylesResult.dependencies)].sort()
     console.log("")
     await installDependencies(deps, cwd)
   }

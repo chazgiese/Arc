@@ -13,13 +13,13 @@ During `init`, the CLI scans for existing fonts (`next/font` imports, `@font-fac
 
 ## How fonts plug into Stera UI
 
-All Stera typography reads from two CSS variables defined in `stera-ui.css`:
+All Stera typography reads from two CSS variables defined in `ui/typography.css`:
 
-```css title="styles/stera-ui.css"
+```css title="styles/ui/typography.css"
 :root {
   --font-heading: var(--font-geist-sans);
   --font-sans: var(--font-geist-sans);
 }
 ```
 
-To use a different font, point these variables at it. Edit `stera-ui.css` directly, or override in `globals.css` after the `@import "./stera-ui.css"` line. Installing the font itself (via `next/font`, fontsource, `@font-face`, etc.) is a regular framework task — Stera UI only cares about the two variables.
+To use a different font, point these variables at it. Edit `ui/typography.css` directly, or override in `globals.css` after the `@import "./ui/index.css"` line. Installing the font itself (via `next/font`, fontsource, `@font-face`, etc.) is a regular framework task — Stera UI only cares about the two variables.

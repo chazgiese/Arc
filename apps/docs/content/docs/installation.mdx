@@ -15,7 +15,7 @@ description: How to install and configure Stera UI in your project.
 pnpm dlx stera-ui@latest init
 ```
 
-`init` detects your project structure, writes `stera.config.json`, creates `stera-ui.css` with the design tokens, and installs `tw-animate-css`.
+`init` detects your project structure, writes `stera.config.json`, creates a `ui/` folder of style partials next to your `globals.css`, and installs `tw-animate-css`.
 
 ## Add components
 
@@ -42,7 +42,9 @@ Registry dependencies are resolved automatically — adding `dialog` also pulls 
 pnpm dlx stera-ui@latest add globals
 ```
 
-Re-pulls the latest `stera-ui.css` from the registry. Use this to pick up token updates without re-adding components.
+Re-pulls the style partials from the registry. Use this to pick up updates without re-adding components.
+
+`ui/colors.css` and `ui/typography.css` are yours — a refresh asks before replacing them, so your theme and font setup survive. Pass `--overwrite` to take the registry version regardless.
 
 ## List components
 
@@ -58,11 +60,31 @@ After `init`:
 
 ```text
 your-project/
-├── stera.config.json       # Stera UI configuration
+├── stera.config.json        # Stera UI configuration
 └── styles/
-    ├── globals.css          # Imports stera-ui.css + peer styles
-    └── stera-ui.css         # Design tokens + utilities
+    ├── globals.css          # Yours — imports ui/index.css + peer styles
+    └── ui/
+        ├── index.css        # Wires the partials together
+        ├── colors.css       # Color tokens, light + dark
+        ├── typography.css   # Type tokens + typography utilities
+        ├── scrollbar.css    # Scrollbar utilities
+        ├── scroll-fade.css  # Scroll-fade utilities
+        └── base.css         # Base layer defaults
 ```
+
+### What each file is for
+
+| File | Contents | Yours to edit? |
+| --- | --- | --- |
+| `globals.css` | Your own styles, plus the imports `init` added | Yes — never touched after `init` |
+| `ui/colors.css` | Color ramps, semantic color tokens, `.dark` overrides, and the Tailwind color mappings | Yes — this is the file to paste new colors into |
+| `ui/typography.css` | Font families, sizes, weights, letter spacing, line heights, and the `st-*` utilities | Yes — font variables are patched here |
+| `ui/scrollbar.css` | `scrollbar-hide` | Rarely |
+| `ui/scroll-fade.css` | The `scroll-fade` utilities | Rarely |
+| `ui/base.css` | Base layer element defaults | Rarely |
+| `ui/index.css` | Import manifest and the `dark` variant | No — a refresh rewrites it |
+
+Everything in `ui/` is plain CSS in your project. Rename it, split it further, or fold it into your own structure — the CLI only needs `globals.css` to keep importing whatever entry point you settle on.
 
 After your first `stera-ui add`:
 
@@ -76,5 +98,5 @@ your-project/
 │   └── utils.ts             # cn() utility
 └── styles/
     ├── globals.css
-    └── stera-ui.css
+    └── ui/
 ```

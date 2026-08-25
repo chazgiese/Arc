@@ -24,7 +24,7 @@ export interface WriteResult {
  * Prompt the user to confirm overwriting an existing file.
  * Returns false in non-TTY environments (e.g. CI).
  */
-async function confirmOverwrite(relativePath: string): Promise<boolean> {
+export async function confirmOverwrite(relativePath: string): Promise<boolean> {
   if (!process.stdin.isTTY) {
     console.log(
       `  Skipping ${relativePath} (already exists, use --overwrite to replace)`

@@ -1057,6 +1057,41 @@ const examples: Record<string, RegistryEntry> = {
     path: "examples/scroll-area-horizontal.tsx",
     slug: "scroll-area",
   },
+  "scroll-fade-demo": {
+    component: dynamic(() => import("@/examples/scroll-fade-demo")),
+    path: "examples/scroll-fade-demo.tsx",
+    slug: "scroll-fade",
+  },
+  "scroll-fade-overflow": {
+    component: dynamic(() => import("@/examples/scroll-fade-overflow")),
+    path: "examples/scroll-fade-overflow.tsx",
+    slug: "scroll-fade",
+  },
+  "scroll-fade-horizontal": {
+    component: dynamic(() => import("@/examples/scroll-fade-horizontal")),
+    path: "examples/scroll-fade-horizontal.tsx",
+    slug: "scroll-fade",
+  },
+  "scroll-fade-edge": {
+    component: dynamic(() => import("@/examples/scroll-fade-edge")),
+    path: "examples/scroll-fade-edge.tsx",
+    slug: "scroll-fade",
+  },
+  "scroll-fade-size": {
+    component: dynamic(() => import("@/examples/scroll-fade-size")),
+    path: "examples/scroll-fade-size.tsx",
+    slug: "scroll-fade",
+  },
+  "scroll-fade-none": {
+    component: dynamic(() => import("@/examples/scroll-fade-none")),
+    path: "examples/scroll-fade-none.tsx",
+    slug: "scroll-fade",
+  },
+  "scroll-fade-rtl": {
+    component: dynamic(() => import("@/examples/scroll-fade-rtl")),
+    path: "examples/scroll-fade-rtl.tsx",
+    slug: "scroll-fade",
+  },
 }
 
 export function getRegistryComponent(name: string): ComponentType | null {

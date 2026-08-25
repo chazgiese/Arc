@@ -12,7 +12,36 @@
       "type": "registry:style",
       "dependencies": ["tw-animate-css"],
       "files": [
-        { "path": "registry/styles/globals.css", "type": "registry:style" }
+        {
+          "path": "registry/styles/ui/index.css",
+          "type": "registry:style",
+          "target": "ui/index.css"
+        },
+        {
+          "path": "registry/styles/ui/colors.css",
+          "type": "registry:style",
+          "target": "ui/colors.css"
+        },
+        {
+          "path": "registry/styles/ui/typography.css",
+          "type": "registry:style",
+          "target": "ui/typography.css"
+        },
+        {
+          "path": "registry/styles/ui/scrollbar.css",
+          "type": "registry:style",
+          "target": "ui/scrollbar.css"
+        },
+        {
+          "path": "registry/styles/ui/scroll-fade.css",
+          "type": "registry:style",
+          "target": "ui/scroll-fade.css"
+        },
+        {
+          "path": "registry/styles/ui/base.css",
+          "type": "registry:style",
+          "target": "ui/base.css"
+        }
       ]
     },
     {
